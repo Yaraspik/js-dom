@@ -16,11 +16,6 @@ export default class Game {
   init() {
     this.createField();
     this.createGoblin();
-
-    setInterval(() => {
-      this.removeGoblin();
-      this.createGoblin();
-    }, 1000);
   }
 
   createField() {
@@ -45,9 +40,16 @@ export default class Game {
   createGoblin() {
     const goblin = document.createElement('img');
     goblin.classList.add('game-goblin');
-    const position = this.createPosition();
+    let position = this.createPosition();
     this.goblin = goblin;
     this.board.children[position.row].children[position.column].append(goblin);
+
+    setInterval(() => {
+      this.removeGoblin();
+      position = this.createPosition();
+      this.goblin = goblin;
+      this.board.children[position.row].children[position.column].append(goblin);
+    }, 1000);
   }
 
   * generatePosition() {

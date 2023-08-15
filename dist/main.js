@@ -116,13 +116,8 @@ var Game = /*#__PURE__*/function () {
   }, {
     key: "init",
     value: function init() {
-      var _this = this;
       this.createField();
       this.createGoblin();
-      setInterval(function () {
-        _this.removeGoblin();
-        _this.createGoblin();
-      }, 1000);
     }
   }, {
     key: "createField",
@@ -146,11 +141,18 @@ var Game = /*#__PURE__*/function () {
   }, {
     key: "createGoblin",
     value: function createGoblin() {
+      var _this = this;
       var goblin = document.createElement('img');
       goblin.classList.add('game-goblin');
       var position = this.createPosition();
       this.goblin = goblin;
       this.board.children[position.row].children[position.column].append(goblin);
+      setInterval(function () {
+        _this.removeGoblin();
+        position = _this.createPosition();
+        _this.goblin = goblin;
+        _this.board.children[position.row].children[position.column].append(goblin);
+      }, 1000);
     }
   }, {
     key: "generatePosition",
